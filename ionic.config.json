@@ -1,0 +1,7 @@
+{
+  "name": "wkm",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
