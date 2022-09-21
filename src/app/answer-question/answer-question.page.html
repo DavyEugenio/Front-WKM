@@ -7,14 +7,14 @@
 <ion-content [fullscreen]="true">
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle></ion-card-subtitle>
+      <ion-card-subtitle *ngIf="categoria">{{categoria}}</ion-card-subtitle>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content *ngIf="questao">
       {{questao.texto}}
     </ion-card-content>
   </ion-card>
-  <ion-card>
-    <ion-button *ngFor="let alt of questao.alternativas" expand="block"></ion-button>
+  <ion-card *ngIf="questao">
+    <ion-button *ngFor="let alt of questao.alternativas" expand="block">{{alt.texto}}</ion-button>
   </ion-card>
 </ion-content>

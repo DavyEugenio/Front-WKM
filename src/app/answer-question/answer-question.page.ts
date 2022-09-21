@@ -13,18 +13,18 @@ import { QuestaoService } from '../services/domain/questao.service';
 export class AnswerQuestionPage implements OnInit {
 
   questao: QuestaoDTO;
-  categoria:CategoriaDTO;
+  categoria:string;
   constructor(private route: ActivatedRoute,
     
     private questaoService: QuestaoService,
     private categoriaService: CategoriaService) {
-    this.route.queryParams.subscribe(params => {96
-      //let a = getNav.extras.state.estabelecimentoID;
+    this.route.queryParams.subscribe(params => {
       this.questaoService.findById("1")
         .subscribe(
           response => {
             this.questao = response;
             console.log(this.questao);
+            this.categoria = response.categoria;
           },
           error => {
             console.log(error);
@@ -40,11 +40,15 @@ export class AnswerQuestionPage implements OnInit {
   getCategoria() {
     this.categoriaService.findById(this.questao.categoria).subscribe(
       response => {
-        this.categoria = response;
+        //this.categoria = response;
       },
       error => {
         console.log(error);
       }
     );
+  }
+
+  answerQuestion(){
+    
   }
 }

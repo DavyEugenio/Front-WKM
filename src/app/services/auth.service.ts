@@ -42,7 +42,7 @@ export class AuthService {
         this.storage.setLocalUser(user);
     }
 
-    recuperarSenha(obj: EmailDTO) {
+    recoverPassword(obj: EmailDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/auth/forgot`,
             obj,
             {
