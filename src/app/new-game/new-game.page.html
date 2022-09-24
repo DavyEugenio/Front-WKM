@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>new-game</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form  [formGroup]="form" (ngSubmit)="addCofiguracaoPartida(); $event.preventDefault()">
+    <ion-item>
+      <ion-label>Nível</ion-label>
+      <ion-select formControlName="nivel" placeholder="Nível">
+        <ion-select-option value="1">1</ion-select-option>
+        <ion-select-option value="2">2</ion-select-option>
+        <ion-select-option value="3">3</ion-select-option>
+        <ion-select-option value="4">4</ion-select-option>
+        <ion-select-option value="5">5</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Categorias</ion-label>
+      <ion-select multiple="true" formControlName="categoriasIds" placeholder="Categorias">
+        <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">
+          {{categoria.nome}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-button class="form-button" color="success" block type="submit">Salvar</ion-button>
+      <ion-button class="form-button" color="danger" block type="reset" (click)="cancelar()">Cancelar</ion-button>
+    </ion-item>
+  </form>
+</ion-content>

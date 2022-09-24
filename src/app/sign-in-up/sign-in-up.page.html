@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary" class="ion-text-center">Login & Cadastro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="login">
+      <ion-label>Login</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="cadastro">
+      <ion-label>Cadastro</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-slides>
+    <ion-slide>
+      <div class="formulario ion-text-center">
+        <span>Login</span>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input [(ngModel)]="creds.email" type="email" placeholder="E-mail"></ion-input>
+        </ion-item>
+        <ion-item class="ion-margin-top" lines="none">
+          <ion-input [(ngModel)]="creds.senha" type="password" placeholder="Senha"></ion-input>
+        </ion-item>
+        <ion-button class="ion-margin-top" expand="block" (click)="login()">Entrar</ion-button>
+        <a class="recuperar-senha" [routerLink]="['/tabs/recuperar-senha']">Esqueci a senha</a>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="formulario ion-text-center">
+        <span>Cadastro</span>
+        <form [formGroup]="form" (ngSubmit)="signupUser(); $event.preventDefault()">
+          <ion-item class="ion-margin-top" lines="none">
+            <ion-input type="text" placeholder="Nome" formControlName="nome"></ion-input>
+          </ion-item>
+          <ion-item class="ion-margin-top" lines="none">
+            <ion-input type="text" placeholder="Nome de Usuário" formControlName="nomeUsuario"></ion-input>
+          </ion-item>
+          <ion-item class="ion-margin-top" lines="none">
+            <ion-input type="email" placeholder="E-mail" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item class="ion-margin-top" lines="none">
+            <ion-input type="password" placeholder="Senha" formControlName="senha"></ion-input>
+          </ion-item>
+          <ion-item class="ion-margin-top" lines="none">
+            <ion-input type="password" placeholder="Confirmar senha" formControlName="confirmarSenha"></ion-input>
+          </ion-item>
+          <ion-button class="ion-margin-top" expand="block" type="submit">Cadastrar</ion-button>
+        </form>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

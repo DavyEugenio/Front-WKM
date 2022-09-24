@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoriaDTO } from '../models/categoria.dto';
 import { QuestaoDTO } from '../models/questao.dto';
+import { RespostaDTO } from '../models/resposta.dto';
 import { CategoriaService } from '../services/domain/categoria.service';
-import { QuestaoService } from '../services/domain/questao.service';
+import { PartidaService } from '../services/domain/partida.service';
 
 @Component({
   selector: 'app-answer-question',
@@ -13,34 +14,46 @@ import { QuestaoService } from '../services/domain/questao.service';
 export class AnswerQuestionPage implements OnInit {
 
   questao: QuestaoDTO;
-  categoria:string;
-  constructor(private route: ActivatedRoute,
-    
-    private questaoService: QuestaoService,
-    private categoriaService: CategoriaService) {
-    this.route.queryParams.subscribe(params => {
-      this.questaoService.findById("1")
-        .subscribe(
-          response => {
-            this.questao = response;
-            console.log(this.questao);
-            this.categoria = response.categoria;
-          },
-          error => {
-            console.log(error);
-          }
-        );
+  categoria: CategoriaDTO;
+  partidaId: string;
 
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private partidaService: PartidaService,
+    private categoriaService: CategoriaService) {
+
+    this.route.queryParams.subscribe(params => {
+      let getNav = this.router.getCurrentNavigation();
+      if (getNav.extras.state) {
+        this.partidaId = getNav.extras.state.partidaId;
+        this.getLastQuestion();
+      } else {
+        this.router.navigate(['tabs/tab3']);
+      }
     });
   }
 
   ngOnInit() {
   }
 
-  getCategoria() {
-    this.categoriaService.findById(this.questao.categoria).subscribe(
+  getLastQuestion(){
+    this.partidaService.getLastQuestion(this.partidaId)
+        .subscribe(
+          response => {
+            this.questao = response;
+            console.log(this.questao);
+            this.getCategoria(this.questao.categoriaId);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+  }
+
+  getCategoria(id: string) {
+    this.categoriaService.findById(id).subscribe(
       response => {
-        //this.categoria = response;
+        this.categoria = response;
       },
       error => {
         console.log(error);
@@ -48,7 +61,16 @@ export class AnswerQuestionPage implements OnInit {
     );
   }
 
-  answerQuestion(){
-    
+  answerQuestion(alternativaId:string) {
+    console.log(alternativaId);
+    this.partidaService.answerQuestion({"registroPartidaId":this.partidaId, alternativaId}).subscribe(
+      response => {
+        this.getLastQuestion();
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );;
   }
 }

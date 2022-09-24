@@ -1,0 +1,43 @@
+ion-slides{
+    height: calc(100% - 48px);
+}
+
+.formulario{
+    position: absolute;
+    top: 5%; left: 0; right: 0;
+    width: 85%;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-color: #ececec75;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    ion-label{ 
+        font-size: large;
+        color: black;
+    }   
+    ion-item{
+        --background:rgba(255, 255, 255, 0.5);
+        --border-radius:10px; 
+        margin-top: 5px;
+        font-size: large;
+        margin-left: 10px;
+        margin-right: 10px;
+        color: black;
+    }
+
+    ion-button{
+        margin-top: 5px;
+        font-size: large;
+        margin-left: 10px;
+        margin-right: 10px;  
+    }   
+}
+
+.danger{
+    color: red;
+    font-size: x-small;
+}
+
+.recuperar-senha{
+    text-decoration: none;
+}
