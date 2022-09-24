@@ -12,6 +12,31 @@
       <ion-title size="large">Tab 2</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div class="container">
+    <div *ngIf="jogador">
+      <div class="image-content">
+        <img class="imagem-usuario" [src]="image">
+      </div>
+      <div class="buttons">
+        <ion-button class="midia-button" (click)="deletePicture()" *ngIf="image != '/assets/img/user.jpg'">
+          <ion-icon class="icon-button font-s" name="trash-outline"></ion-icon>
+        </ion-button>
+        <ion-button class="midia-button mg-l" (click)="getCameraPicture()">
+          <ion-icon class="icon-button font-s" name="camera"></ion-icon>
+        </ion-button>
+      </div>
+      <ul class="informacoes">
+        <li class="label">Nome</li>
+        <li class="label2 pad-l">{{ jogador.nome }}</li>
+        <li class="label">E-mail</li>
+        <li class="label2 pad-l">{{ jogador.email }}</li>
+        <li class="label">Meus estabelecimentos</li>
+      </ul>
+      <br>
+      <ion-button expand="block" [routerLink]="['/tabs/alterar-senha']">Alterar Senha</ion-button>
+      <ion-button expand="block" color="danger" (click)="logout()">Sair</ion-button>
+    </div>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+
+  </div>
 </ion-content>

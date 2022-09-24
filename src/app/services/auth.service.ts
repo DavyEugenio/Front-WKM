@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CredenciaisDTO } from './../models/credenciais.dto';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from '../config/api.config';
-import { LocalUser } from '../models/local_user';
+import { LocalUser } from '../models/localuser';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { EmailDTO } from '../models/email.dto';
 
@@ -25,7 +25,7 @@ export class AuthService {
     }
 
     refreshToken() {
-        return this.http.post(`${API_CONFIG.baseUrl}/auth/refresh_token`,
+        return this.http.post(`${API_CONFIG.baseUrl}/auth/refreshToken`,
             {},
             {
                 observe: 'response',

@@ -1,4 +1,4 @@
-import { LocalUser } from './../models/local_user';
+import { LocalUser } from '../models/localuser';
 import { Injectable } from '@angular/core';
 import { STORAGE_KEYS } from '../config/storage.config';
 

@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  Plugins, CameraResultType, CameraPhoto, CameraSource
-} from '@capacitor/core';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 
-const { Camera } = Plugins;
 @Injectable({
   providedIn: 'root'
 })
@@ -24,8 +21,8 @@ export class PhotoService {
     return await this.readAsBase64(capturedPhoto);
   }
 
-  private async readAsBase64(cameraPhoto: CameraPhoto) {
-    const response = await fetch(cameraPhoto.webPath!);
+  private async readAsBase64(photo: Photo) {
+    const response = await fetch(photo.webPath!);
     const blob = await response.blob();
     return await this.convertBlobToBase64(blob) as string;
   }

@@ -9,6 +9,14 @@ const routes: Routes = [
   {
     path: 'answer-question',
     loadChildren: () => import('./answer-question/answer-question.module').then( m => m.AnswerQuestionPageModule)
+  },
+  {
+    path: 'sign-in-up',
+    loadChildren: () => import('./sign-in-up/sign-in-up.module').then( m => m.SignInUpPageModule)
+  },
+  {
+    path: 'new-game',
+    loadChildren: () => import('./new-game/new-game.module').then( m => m.NewGamePageModule)
   }
 ];
 @NgModule({
