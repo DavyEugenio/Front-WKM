@@ -6,14 +6,14 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="jogador">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">{{jogador.nomeUsuario}}</ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="container">
-    <div *ngIf="jogador">
+    <div>
       <div class="image-content">
         <img class="imagem-usuario" [src]="image">
       </div>
@@ -25,15 +25,18 @@
           <ion-icon class="icon-button font-s" name="camera"></ion-icon>
         </ion-button>
       </div>
-      <ul class="informacoes">
-        <li class="label">Nome</li>
-        <li class="label2 pad-l">{{ jogador.nome }}</li>
-        <li class="label">E-mail</li>
-        <li class="label2 pad-l">{{ jogador.email }}</li>
-        <li class="label">Meus estabelecimentos</li>
-      </ul>
+      <ion-list class="text-center">
+        <ion-item>
+          Nome: {{ jogador.nome }}
+        </ion-item>
+        <ion-item>Nome de usário:</ion-item>
+        <ion-item>E-mail: {{ jogador.email }}</ion-item>
+        <ion-item>Qtd. de partidas: {{jogador.qtdPartidas}}</ion-item>
+        <ion-item>Pontuação total: {{jogador.pontuacaoTotal}}</ion-item>
+        <ion-item>Saldo: {{jogador.saldo}}</ion-item>
+      </ion-list>
       <br>
-      <ion-button expand="block" [routerLink]="['/tabs/alterar-senha']">Alterar Senha</ion-button>
+      <ion-button expand="block" color="primary" (click)="newGame()">Novo Jogo</ion-button>
       <ion-button expand="block" color="danger" (click)="logout()">Sair</ion-button>
     </div>
 

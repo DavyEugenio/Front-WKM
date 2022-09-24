@@ -11,11 +11,8 @@ export class PhotoService {
   public async getCameraPicture() {
     const capturedPhoto = await Camera.getPhoto({
       resultType: CameraResultType.Uri,
-      source: CameraSource.Prompt,
-      quality: 100,
-      promptLabelHeader: 'Selecionar fonte',
-      promptLabelPhoto: 'Galeria',
-      promptLabelPicture: 'Camera',
+      source: CameraSource.Photos,
+      quality: 100
     });
 
     return await this.readAsBase64(capturedPhoto);

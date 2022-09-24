@@ -66,7 +66,11 @@ export class Tab2Page {
 
   logout() {
     this.auth.logout();
-    this.router.navigate(['tabs/tab2']);
+    this.router.navigate(['sign-in-up']);
+  }
+
+  newGame() {
+    this.router.navigate(['new-game']);
   }
 
   public async getCameraPicture() {
