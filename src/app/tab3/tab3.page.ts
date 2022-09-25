@@ -59,6 +59,10 @@ export class Tab3Page {
     }
   }
 
+  newGame() {
+    this.router.navigate(['new-game']);
+  }
+
   logout() {
     this.auth.logout();
     this.router.navigate(['sign-in-up']);
@@ -72,6 +76,4 @@ export class Tab3Page {
     };
     this.router.navigate(['answer-question'], data);
   }
-
-  ng
 }

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon
+      class="back-arrow"
+      slot="start"
+      name="arrow-back-outline"
+      (click)="exitTabs()"
+    ></ion-icon>
+    <ion-title>Ranking dos melhores jogadores.</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let player of ranking">
+      <ion-icon name="star" slot="start"></ion-icon>
+      <ion-avatar slot="start">
+        <img [src]="player?.imageUrl" />
+      </ion-avatar>
+      <ion-label> {{player.nomeUsuario}} </ion-label>
+      <ion-label slot="end"> {{player.pontuacao}} </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

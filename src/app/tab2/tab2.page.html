@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title> Dados de perfil </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,11 +12,16 @@
   </ion-header>
   <div class="container">
     <div>
-      <div class="image-content">
-        <img class="imagem-usuario" [src]="image">
-      </div>
+      <ion-avatar class="image-content">
+        <img class="imagem-usuario" [src]="image" />
+      </ion-avatar>
+
       <div class="buttons">
-        <ion-button class="midia-button" (click)="deletePicture()" *ngIf="image != '/assets/img/user.jpg'">
+        <ion-button
+          class="midia-button"
+          (click)="deletePicture()"
+          *ngIf="image != '/assets/img/user.jpg'"
+        >
           <ion-icon class="icon-button font-s" name="trash-outline"></ion-icon>
         </ion-button>
         <ion-button class="midia-button mg-l" (click)="getCameraPicture()">
@@ -26,20 +29,16 @@
         </ion-button>
       </div>
       <ion-list class="text-center" lines="none">
-        <ion-item>
-          Nome: {{ jogador.nome }}
-        </ion-item>
-        <ion-item>Nome de usário:</ion-item>
+        <ion-item> Nome: {{ jogador.nome }} </ion-item>
+        <ion-item>Nome de usuário: {{jogador.nomeUsuario}}</ion-item>
         <ion-item>E-mail: {{ jogador.email }}</ion-item>
         <ion-item>Qtd. de partidas: {{jogador.qtdPartidas}}</ion-item>
         <ion-item>Pontuação total: {{jogador.pontuacaoTotal}}</ion-item>
         <ion-item>Saldo: {{jogador.saldo}}</ion-item>
       </ion-list>
-      <br>
-      <ion-button expand="block" color="primary" (click)="newGame()">Novo Jogo</ion-button>
-      <ion-button expand="block" color="danger" (click)="logout()">Sair</ion-button>
+      <br />
+      <ion-button expand="block" color="danger" (click)="logout()"
+        >Sair</ion-button>
     </div>
-
-
   </div>
 </ion-content>

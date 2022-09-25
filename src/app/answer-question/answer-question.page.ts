@@ -38,18 +38,18 @@ export class AnswerQuestionPage implements OnInit {
   ngOnInit() {
   }
 
-  getLastQuestion(){
+  getLastQuestion() {
     this.partidaService.getLastQuestion(this.partidaId)
-        .subscribe(
-          response => {
-            this.questao = response;
-            console.log(this.questao);
-            this.getCategoria(this.questao.categoriaId);
-          },
-          error => {
-            console.log(error);
-          }
-        );
+      .subscribe(
+        response => {
+          this.questao = response;
+          console.log(this.questao);
+          this.getCategoria(this.questao.categoriaId);
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   getCategoria(id: string) {
@@ -63,15 +63,15 @@ export class AnswerQuestionPage implements OnInit {
     );
   }
 
-  answerQuestion(alternativaId:string) {
-    this.partidaService.answerQuestion({"registroPartidaId":this.partidaId, "alternativaId":alternativaId}).subscribe(
+  answerQuestion(alternativaId: string) {
+    this.partidaService.answerQuestion({ "registroPartidaId": this.partidaId, "alternativaId": alternativaId }).subscribe(
       response => {
-        if(response.status == 210){
+        if (response.status == 210) {
           this.endGame();
         } else {
           this.correctAnswer();
         }
-        
+
       },
       error => {
         this.router.navigate(['tabs/tab3']);
@@ -100,6 +100,10 @@ export class AnswerQuestionPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+  exit() {
+    this.router.navigate(['tabs/tab3']);
   }
 
   async endGame() {

@@ -6,13 +6,14 @@ import { API_CONFIG } from 'src/app/config/api.config';
 import { ImageUtilService } from '../image-util.service';
 import { UsuarioNewDTO } from 'src/app/models/usuario.new.dto';
 import { JogadorDTO } from 'src/app/models/jogador.dto';
+import { RankingDTO } from 'src/app/models/ranking.dto';
 
 @Injectable({
     providedIn: 'root'
 })
 export class JogadorService {
 
-    
+
     constructor(public http: HttpClient,
         public imageUtilService: ImageUtilService) {
     }
@@ -25,7 +26,7 @@ export class JogadorService {
         return this.http.get<UsuarioDTO>(`${API_CONFIG.baseUrl}/jogadores`);
     }
 
-    
+
     insert(obj: UsuarioNewDTO) {
         return this.http.post(
             `${API_CONFIG.baseUrl}/jogadores`,
@@ -39,14 +40,14 @@ export class JogadorService {
 
     update(obj: UsuarioDTO, id: string) {
         return this.http.put(
-          `${API_CONFIG.baseUrl}/jogadores/${id}`,
-          obj,
-          {
-            observe: 'response',
-            responseType: 'text'
-          }
+            `${API_CONFIG.baseUrl}/jogadores/${id}`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
         );
-      }
+    }
 
     delete(id: string) {
         return this.http.delete(`${API_CONFIG.baseUrl}/jogadores/${id}`,
@@ -57,8 +58,8 @@ export class JogadorService {
         );
     }
 
-    rank(): Observable<UsuarioDTO> {
-        return this.http.get<UsuarioDTO>(`${API_CONFIG.baseUrl}/jogadores/ranking`);
+    rank(): Observable<RankingDTO[]> {
+        return this.http.get<RankingDTO[]>(`${API_CONFIG.baseUrl}/jogadores/ranking`);
     }
 
     upLoadPicture(picture) {

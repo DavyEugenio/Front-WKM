@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon
+      class="back-arrow"
+      slot="start"
+      name="arrow-back-outline"
+      (click)="exitTabs()"
+    ></ion-icon>
+    <ion-title>Ranking dos melhores jogadores por configuração.</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let player of rankingGamesByConfiguration">
+      <ion-avatar slot="start">
+        <img [src]="player?.imageUrl" />
+      </ion-avatar>
+      <ion-label>{{player.nomeUsuario}} - {{player.pontuacao}} </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

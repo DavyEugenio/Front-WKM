@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Exibição dos Rankings de "Who Knows More"
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,5 +13,15 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-button expand="block" color="primary" (click)="rankingPlayer()"
+  >Ranking de Jogadores</ion-button>
+
+  <ion-button expand="block" color="primary" (click)="rankingGames()"
+  >Ranking de jogadores dentre as partidas (registro*)</ion-button>
+
+  <ion-button expand="block" color="primary" (click)="rankingGameByConfiguration()"
+  >Ranking de jogadores dentre as partidas especificas</ion-button>
+
+  
 
 </ion-content>

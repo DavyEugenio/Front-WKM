@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Partidas Em Andamento
-    </ion-title>
+    <ion-title> Partidas Em Andamento </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,11 +11,16 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-button expand="block" color="primary" (click)="newGame()"
+    >Novo Jogo</ion-button>
+    
   <ion-list *ngIf="partidas">
-    <ion-item *ngFor="let partida of partidas" (click)="answerQuestion(partida.id)">
-      <ion-label>{{partida.momento}}</ion-label>
-      <ion-label class="float-end">{{partida.pontuacao}}</ion-label>
+    <ion-item
+      *ngFor="let partida of partidas"
+      (click)="answerQuestion(partida.id)"
+    >
+      <ion-label slot="start">{{partida.momento}}</ion-label>
+      <ion-label slot="end">{{partida.pontuacao}}</ion-label>
     </ion-item>
   </ion-list>
-
 </ion-content>

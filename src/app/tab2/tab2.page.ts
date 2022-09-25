@@ -68,11 +68,7 @@ export class Tab2Page {
     this.auth.logout();
     this.router.navigate(['sign-in-up']);
   }
-
-  newGame() {
-    this.router.navigate(['new-game']);
-  }
-
+  
   public async getCameraPicture() {
     var photo = await this.photoService.getCameraPicture();
     await this.sendPicture(photo);
