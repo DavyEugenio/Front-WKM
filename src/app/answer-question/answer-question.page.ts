@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { CategoriaDTO } from '../models/categoria.dto';
 import { QuestaoDTO } from '../models/questao.dto';
 import { RespostaDTO } from '../models/resposta.dto';
@@ -20,7 +21,8 @@ export class AnswerQuestionPage implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private partidaService: PartidaService,
-    private categoriaService: CategoriaService) {
+    private categoriaService: CategoriaService,
+    private alertCtrl: AlertController) {
 
     this.route.queryParams.subscribe(params => {
       let getNav = this.router.getCurrentNavigation();
@@ -62,15 +64,58 @@ export class AnswerQuestionPage implements OnInit {
   }
 
   answerQuestion(alternativaId:string) {
-    console.log(alternativaId);
-    this.partidaService.answerQuestion({"registroPartidaId":this.partidaId, alternativaId}).subscribe(
+    this.partidaService.answerQuestion({"registroPartidaId":this.partidaId, "alternativaId":alternativaId}).subscribe(
       response => {
-        this.getLastQuestion();
-        console.log(response);
+        if(response.status == 210){
+          this.endGame();
+        } else {
+          this.correctAnswer();
+        }
+        
       },
       error => {
-        console.log(error);
+        this.router.navigate(['tabs/tab3']);
       }
     );;
+  }
+
+  async correctAnswer() {
+    let alert = await this.alertCtrl.create({
+      header: 'Sucesso!',
+      message: 'Resposta correta!',
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Continuar',
+          handler: () => {
+            this.getLastQuestion();
+          }
+        },
+        {
+          text: 'Sair',
+          handler: () => {
+            this.router.navigate(['tabs/tab3']);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async endGame() {
+    let alert = await this.alertCtrl.create({
+      header: 'Vitória!',
+      message: 'Bom jogo!',
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.router.navigate(['tabs/tab3']);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }

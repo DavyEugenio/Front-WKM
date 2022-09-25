@@ -34,6 +34,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                         this.handle403();
                         break;
 
+                    case 406:
+                        this.handle406(errorObj);
+                        break;
+
                     case 422:
                         this.handle422(errorObj);
                         break;
@@ -49,6 +53,20 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     handle403() {
         this.storage.setLocalUser(null);
+    }
+
+    async handle406(errorObj) {
+        let msg = errorObj.message.split('!');
+        const alert = await this.alertCtrl.create({
+            header: 'Resposta incorreta!',
+            message: msg[0] + '!<br>' + msg[1],
+            backdropDismiss: false,
+            buttons: [{
+                text: 'Ok'
+            }]
+
+        });
+        await alert.present();
     }
 
     async handle401() {

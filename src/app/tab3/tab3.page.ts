@@ -24,7 +24,10 @@ export class Tab3Page {
     private partidaService: PartidaService,
     public storage: StorageService,
     public auth: AuthService,){
-      this.getJogador();
+  }
+
+  ionViewDidEnter() {
+    this.getJogador();
   }
 
   async getPartidas() {
@@ -69,4 +72,6 @@ export class Tab3Page {
     };
     this.router.navigate(['answer-question'], data);
   }
+
+  ng
 }

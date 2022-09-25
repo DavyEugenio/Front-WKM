@@ -58,8 +58,16 @@ export class PartidaService {
         return this.http.get<QuestaoDTO>(`${API_CONFIG.baseUrl}/partidas/${id}/questao`);
     }
 
-    answerQuestion(answer: RespostaDTO): Observable<AlternativaDTO> {
-        return this.http.post<AlternativaDTO>(`${API_CONFIG.baseUrl}/partidas`, answer);
+    answerQuestion(answer: RespostaDTO) {
+        console.log(answer);
+
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/partidas/responder`,
+            answer,
+            {
+                observe: 'response'
+            }
+        );
     }
 
     findActivesByJogador(id: string): Observable<RegistroPartidaDTO[]> {
