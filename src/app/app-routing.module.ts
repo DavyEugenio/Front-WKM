@@ -17,7 +17,19 @@ const routes: Routes = [
   {
     path: 'new-game',
     loadChildren: () => import('./new-game/new-game.module').then( m => m.NewGamePageModule)
+  },  {
+    path: 'ranking-player',
+    loadChildren: () => import('./ranking-player/ranking-player.module').then( m => m.RankingPlayerPageModule)
+  },
+  {
+    path: 'ranking-games',
+    loadChildren: () => import('./ranking-games/ranking-games.module').then( m => m.RankingGamesPageModule)
+  },
+  {
+    path: 'ranking-game-by-configuration',
+    loadChildren: () => import('./ranking-game-by-configuration/ranking-game-by-configuration.module').then( m => m.RankingGameByConfigurationPageModule)
   }
+
 ];
 @NgModule({
   imports: [

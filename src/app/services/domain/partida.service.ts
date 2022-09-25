@@ -95,11 +95,11 @@ export class PartidaService {
         );
     }
 
-    rank(): Observable<RankingDTO> {
-        return this.http.get<RankingDTO>(`${API_CONFIG.baseUrl}/partidas/ranking`);
+    rank(): Observable<RankingDTO[]> {
+        return this.http.get<RankingDTO[]>(`${API_CONFIG.baseUrl}/partidas/ranking`);
     }
 
-    rankByConfiguracao(id: string): Observable<RankingDTO> {
-        return this.http.get<RankingDTO>(`${API_CONFIG.baseUrl}/partidas/ranking/configuracao${id}`);
+    rankByConfiguracao(id: string): Observable<RankingDTO[]> {
+        return this.http.get<RankingDTO[]>(`${API_CONFIG.baseUrl}/partidas/ranking/configuracao/${id}`);
     }
 }
