@@ -35,7 +35,7 @@ export class RankingPlayerPage implements OnInit {
           player.imageUrl = `${API_CONFIG.baseUrl}/imagens/jog${player.jogadorId}.jpg`;
         },
           error => {
-            player.imageUrl = '/assets/img/imagem.jpg';
+            player.imageUrl = '/assets/img/user.jpg';
           }
         );
     }
