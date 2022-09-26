@@ -1,4 +1,4 @@
 export interface SenhaUpdateDTO {
-    senhaNova: string;
-    senhaAntiga: string;
+    novaSenha: string;
+    senha: string;
 }

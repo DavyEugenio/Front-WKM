@@ -38,7 +38,7 @@ export class JogadorService {
         );
     }
 
-    update(obj: UsuarioDTO, id: string) {
+    update(id: string, obj: UsuarioDTO) {
         return this.http.put(
             `${API_CONFIG.baseUrl}/jogadores/${id}`,
             obj,

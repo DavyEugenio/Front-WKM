@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+  },
+  {
     path: 'answer-question',
     loadChildren: () => import('./answer-question/answer-question.module').then( m => m.AnswerQuestionPageModule)
   },
@@ -17,7 +21,8 @@ const routes: Routes = [
   {
     path: 'new-game',
     loadChildren: () => import('./new-game/new-game.module').then( m => m.NewGamePageModule)
-  },  {
+  },
+  {
     path: 'ranking-player',
     loadChildren: () => import('./ranking-player/ranking-player.module').then( m => m.RankingPlayerPageModule)
   },
@@ -28,7 +33,11 @@ const routes: Routes = [
   {
     path: 'ranking-game-by-configuration',
     loadChildren: () => import('./ranking-game-by-configuration/ranking-game-by-configuration.module').then( m => m.RankingGameByConfigurationPageModule)
+  },  {
+    path: 'change-password',
+    loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
   }
+
 
 ];
 @NgModule({

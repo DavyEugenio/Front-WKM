@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { JogadorDTO } from '../models/jogador.dto';
 import { AuthService } from '../services/auth.service';
 import { JogadorService } from '../services/domain/jogador.service';
@@ -14,18 +16,26 @@ import { StorageService } from '../services/storage.service';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  jogador: JogadorDTO;
+  player: JogadorDTO;
   image;
+  edit = false;
+  formEdit: FormGroup;
   constructor(
     public storage: StorageService,
     private router: Router,
+    public alertCtrl: AlertController,
     public auth: AuthService,
     public jogadorService: JogadorService,
     public photoService: PhotoService,
+    public formBuilder: FormBuilder,
     public imageUtils: ImageUtilService,
     public sanitizer: DomSanitizer
   ) {
     this.image = '/assets/img/user.jpg';
+    this.fillPlayer();
+  }
+
+  ionViewDidEnter() {
     this.fillPlayer();
   }
 
@@ -35,22 +45,21 @@ export class Tab2Page {
       this.jogadorService.findByEmail(us.email)
         .subscribe(
           response => {
-            this.jogador = response;
+            this.player = response;
             this.getImageOfUsuarioIfExists();
-          },
-          error => {
-            if (error.status == 403) {
-              this.logout();
-            }
-          }
-        );
+            this.formEdit = this.formBuilder.group({
+              nome: [this.player.nome, [Validators.required, Validators.minLength(4), Validators.maxLength(120)]],
+              nomeUsuario: [this.player.nomeUsuario, [Validators.required, Validators.minLength(4), Validators.maxLength(120)]],
+              email: [this.player.email, [Validators.required, Validators.email]],
+            });
+          });
     } else {
       this.logout();
     }
   }
 
   getImageOfUsuarioIfExists() {
-    this.jogadorService.getImageFromServer(this.jogador.id)
+    this.jogadorService.getImageFromServer(this.player.id)
       .subscribe(response => {
         this.imageUtils.blobToDataURL(response).then(dataUrl => {
           let str: string = dataUrl as string;
@@ -68,7 +77,7 @@ export class Tab2Page {
     this.auth.logout();
     this.router.navigate(['sign-in-up']);
   }
-  
+
   public async getCameraPicture() {
     var photo = await this.photoService.getCameraPicture();
     await this.sendPicture(photo);
@@ -91,5 +100,116 @@ export class Tab2Page {
         error => {
         }
       );
+  }
+
+  private listErrors(): string {
+    let s: string = '';
+    for (const field in this.formEdit.controls) {
+      if (this.formEdit.controls[field].invalid) {
+        let value = this.formEdit.controls[field].value;
+        let length: number = value.length;
+        switch (field) {
+          case 'nome':
+            if (!value) {
+              s = s + '<p><strong>Nome: </strong>Preenchimento obrigatório</p>';
+            } else {
+              if (length < 4 || length > 120) {
+                s = s + '<p><strong>Nome: </strong>O nome deve conter entre 4 e 120 caráteres</p>';
+              }
+            }
+            break;
+          case 'nomeUsuario':
+            if (!value) {
+              s = s + '<p><strong>Nome de usuário: </strong>Preenchimento obrigatório</p>';
+            } else {
+              if (length < 4 || length > 120) {
+                s = s + '<p><strong>Nome: </strong>O nome de usuário deve conter entre 4 e 120 caráteres</p>';
+              }
+            }
+            break;
+          case 'email':
+            if (!value) {
+              s = s + '<p><strong>Email: </strong>Preenchimento obrigatório</p>';
+            } else {
+              s = s + '<p><strong>Email: </strong>Email inválido</p>';
+            }
+            break;
+          default:
+            s = s + '<p><strong>' + field + ': </strong>Valor inválido</p>';
+            break;
+        }
+      }
+    }
+    return s;
+  }
+
+  async showAlertOk() {
+    const alert = await this.alertCtrl.create({
+      header: 'Joagdor alterado',
+      message: 'Joagdor alterado com sucesso',
+      backdropDismiss: false,
+      buttons: [{
+        text: 'Ok'
+      }]
+    });
+    await alert.present();
+  }
+
+  async invalidFieldsAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Campos inválidos',
+      message: this.listErrors(),
+      backdropDismiss: false,
+      buttons: [{
+        text: 'Ok'
+      }]
+    });
+    await alert.present();
+  }
+
+  async confirmEdit() {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirmação',
+      message: '<p>Está certo em alterar seus dados?</p> <p>Obs.: Caso altere seu e-mail terá que fazer o login nomente.</p>',
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: () => {
+          }
+        }, {
+          text: 'Sim',
+          handler: () => {
+            this.editUser();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  editUser() {
+    if (this.formEdit.valid) {
+      console.log(this.formEdit.value);
+      this.jogadorService.update(this.player.id, this.formEdit.value).subscribe(
+        response => {
+          this.showAlertOk();
+          if (this.player.email == this.formEdit.controls.email.value) {
+            this.fillPlayer();
+            this.cancelForm();
+          } else {
+            this.logout();
+          }
+        },
+        error => {
+        }
+      );
+    } else {
+      this.invalidFieldsAlert();
+    }
+  }
+
+  cancelForm() {
+    this.edit = false;
+    this.formEdit.reset();
   }
 }

@@ -1,44 +1,59 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Dados de perfil </ion-title>
+    <ion-title> Dados do Perfil </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="jogador">
+<ion-content [fullscreen]="true" *ngIf="player">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">{{jogador.nomeUsuario}}</ion-title>
+      <ion-title size="large" slot="center">{{player.nomeUsuario}}</ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="container">
-    <div>
-      <ion-avatar class="image-content">
-        <img class="imagem-usuario" [src]="image" />
-      </ion-avatar>
+    <ion-avatar class="image-content">
+      <img class="imagem-usuario" [src]="image" />
+    </ion-avatar>
+    <div *ngIf="player && !edit">
 
+      <ion-list class="text-center" lines="none">
+        <ion-item> Nome: {{ player.nome }} </ion-item>
+        <ion-item>Nome de usuário: {{player.nomeUsuario}}</ion-item>
+        <ion-item>E-mail: {{ player.email }}</ion-item>
+        <ion-item>Qtd. de partidas: {{player.qtdPartidas}}</ion-item>
+        <ion-item>Pontuação total: {{player.pontuacaoTotal}}</ion-item>
+        <ion-item>Saldo: {{player.saldo}}</ion-item>
+      </ion-list>
+      <br />
+      <ion-button expand="block" color="primary" (click)="edit = true">Editar</ion-button>
+      <ion-button expand="block" color="danger" (click)="logout()">Sair</ion-button>
+    </div>
+    <form [formGroup]="formEdit" (ngSubmit)="confirmEdit(); $event.preventDefault()" *ngIf="player && edit">
       <div class="buttons">
-        <ion-button
-          class="midia-button"
-          (click)="deletePicture()"
-          *ngIf="image != '/assets/img/user.jpg'"
-        >
+        <ion-button class="midia-button" (click)="deletePicture()" *ngIf="image != '/assets/img/user.jpg'">
           <ion-icon class="icon-button font-s" name="trash-outline"></ion-icon>
         </ion-button>
         <ion-button class="midia-button mg-l" (click)="getCameraPicture()">
           <ion-icon class="icon-button font-s" name="camera"></ion-icon>
         </ion-button>
       </div>
-      <ion-list class="text-center" lines="none">
-        <ion-item> Nome: {{ jogador.nome }} </ion-item>
-        <ion-item>Nome de usuário: {{jogador.nomeUsuario}}</ion-item>
-        <ion-item>E-mail: {{ jogador.email }}</ion-item>
-        <ion-item>Qtd. de partidas: {{jogador.qtdPartidas}}</ion-item>
-        <ion-item>Pontuação total: {{jogador.pontuacaoTotal}}</ion-item>
-        <ion-item>Saldo: {{jogador.saldo}}</ion-item>
-      </ion-list>
-      <br />
-      <ion-button expand="block" color="danger" (click)="logout()"
-        >Sair</ion-button>
-    </div>
+      <ion-item>
+        <ion-label position="floating">Nome</ion-label>
+        <ion-input [value]="player.nome" formControlName="nome"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nome de usuário</ion-label>
+        <ion-input [value]="player.nomeUsuario" formControlName="nomeUsuario"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input [value]="player.email" type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <div >
+        <ion-button expand="block" [routerLink]="['/change-password']">Alterar Senha</ion-button>
+        <ion-button expand="block" color="success" type="submit">Salvar</ion-button>
+        <ion-button expand="block" color="danger" (click)="cancelForm()">Cancelar</ion-button>
+      </div>
+    </form>
   </div>
 </ion-content>

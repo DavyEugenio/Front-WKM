@@ -6,6 +6,7 @@ import { API_CONFIG } from '../config/api.config';
 import { LocalUser } from '../models/localuser';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { EmailDTO } from '../models/email.dto';
+import { SenhaUpdateDTO } from '../models/senhaUpdate.dto';
 
 @Injectable()
 export class AuthService {
@@ -49,6 +50,17 @@ export class AuthService {
                 observe: 'response',
                 responseType: 'text'
             });
+    }
+
+    updatePassword(obj: SenhaUpdateDTO) {
+        return this.http.put(
+            `${API_CONFIG.baseUrl}/auth/password`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        );
     }
 
     logout() {

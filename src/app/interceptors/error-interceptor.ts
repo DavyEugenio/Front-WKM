@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage.service';
 import { Observable } from 'rxjs';
 import { HttpHandler, HttpRequest, HttpInterceptor, HTTP_INTERCEPTORS, HttpEvent } from '@angular/common/http';
-import { Injectable, ComponentFactoryResolver } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { FieldMessage } from '../models/fieldmessage';
@@ -53,6 +53,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     handle403() {
         this.storage.setLocalUser(null);
+        this.router.navigate(['sign-in-up']);
     }
 
     async handle406(errorObj) {

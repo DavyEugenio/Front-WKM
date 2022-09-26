@@ -5,6 +5,7 @@ import { AlertController, IonSlides } from '@ionic/angular';
 import { CredenciaisDTO } from '../models/credenciais.dto';
 import { AuthService } from '../services/auth.service';
 import { JogadorService } from '../services/domain/jogador.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-sign-in-up',
@@ -16,6 +17,7 @@ export class SignInUpPage implements OnInit {
   form: FormGroup;
   creds: CredenciaisDTO;
   constructor(private router: Router,
+    public storage: StorageService,
     public auth: AuthService,
     public formBuilder: FormBuilder,
     public alertCtrl: AlertController,
@@ -50,13 +52,15 @@ export class SignInUpPage implements OnInit {
   }
 
   ionViewDidEnter() {
-    this.auth.refreshToken()
-      .subscribe(response => {
-        this.auth.successfulLogin(response.headers.get('Authorization'));
-        this.creds = null;
-        this.router.navigate(['tabs/tab2']);
-      }, error => {
-      });
+    if (this.storage.getLocalUser()) {
+      this.auth.refreshToken()
+        .subscribe(response => {
+          this.auth.successfulLogin(response.headers.get('Authorization'));
+          this.creds = null;
+          this.router.navigate(['tabs/tab2']);
+        }, error => {
+        });
+    }
     this.initCreds();
   }
 
@@ -88,7 +92,7 @@ export class SignInUpPage implements OnInit {
               }
             }
             break;
-            case 'nomeUsuario':
+          case 'nomeUsuario':
             if (!value) {
               s = s + '<p><strong>Nome de Usuário: </strong>Preenchimento obrigatório</p>';
             } else {
@@ -179,5 +183,5 @@ export class SignInUpPage implements OnInit {
     await alert.present();
   }
 
-  
+
 }

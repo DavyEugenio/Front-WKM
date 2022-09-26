@@ -17,8 +17,5 @@
   <ion-card *ngIf="questao">
     <ion-button *ngFor="let alt of questao.alternativas" expand="block" (click)="answerQuestion(alt.id)">{{alt.texto}}</ion-button>
   </ion-card>
-
-  <ion-button expand="block" color="danger" (click)="exit()"
-        >Sair</ion-button>
 </ion-content>
 
