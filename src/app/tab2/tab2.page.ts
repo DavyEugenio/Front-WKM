@@ -32,6 +32,11 @@ export class Tab2Page {
     public sanitizer: DomSanitizer
   ) {
     this.image = '/assets/img/user.jpg';
+    this.formEdit = this.formBuilder.group({
+      nome: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(120)]],
+      nomeUsuario: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(120)]],
+      email: ["", [Validators.required, Validators.email]],
+    });
     this.fillPlayer();
   }
 
@@ -47,11 +52,7 @@ export class Tab2Page {
           response => {
             this.player = response;
             this.getImageOfUsuarioIfExists();
-            this.formEdit = this.formBuilder.group({
-              nome: [this.player.nome, [Validators.required, Validators.minLength(4), Validators.maxLength(120)]],
-              nomeUsuario: [this.player.nomeUsuario, [Validators.required, Validators.minLength(4), Validators.maxLength(120)]],
-              email: [this.player.email, [Validators.required, Validators.email]],
-            });
+            this.fillEditForm();
           });
     } else {
       this.logout();
@@ -185,6 +186,17 @@ export class Tab2Page {
       ]
     });
     await alert.present();
+  }
+
+  editProfile() {
+    this.edit = true;
+    this.fillEditForm();
+  }
+
+  fillEditForm() {
+    this.formEdit.controls.nome.setValue(this.player.nome);
+    this.formEdit.controls.nomeUsuario.setValue(this.player.nomeUsuario);
+    this.formEdit.controls.email.setValue(this.player.email);
   }
 
   editUser() {

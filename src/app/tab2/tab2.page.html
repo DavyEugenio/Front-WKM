@@ -25,7 +25,7 @@
         <ion-item>Saldo: {{player.saldo}}</ion-item>
       </ion-list>
       <br />
-      <ion-button expand="block" color="primary" (click)="edit = true">Editar</ion-button>
+      <ion-button expand="block" color="primary" (click)="editProfile()">Editar</ion-button>
       <ion-button expand="block" color="danger" (click)="logout()">Sair</ion-button>
     </div>
     <form [formGroup]="formEdit" (ngSubmit)="confirmEdit(); $event.preventDefault()" *ngIf="player && edit">
