@@ -1,21 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>answer-question</ion-title>
+    <ion-title>Responda a Questão </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle *ngIf="categoria">{{categoria.nome}}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="categoria"
+        >{{categoria.nome}}</ion-card-subtitle>
     </ion-card-header>
 
-    <ion-card-content *ngIf="questao">
-      {{questao.texto}}
-    </ion-card-content>
+    <ion-card-content *ngIf="questao"> {{questao.texto}} </ion-card-content>
   </ion-card>
   <ion-card *ngIf="questao">
-    <ion-button *ngFor="let alt of questao.alternativas" expand="block" (click)="answerQuestion(alt.id)">{{alt.texto}}</ion-button>
+    <ion-button
+      *ngFor="let alt of questao.alternativas"
+      expand="block"
+      (click)="answerQuestion(alt.id)"
+      >{{alt.texto}}</ion-button
+    >
   </ion-card>
 </ion-content>
-
