@@ -18,6 +18,7 @@ import { StorageService } from './services/storage.service';
 import { FormBuilder } from '@angular/forms';
 import { ErrorInterceptorProvider } from './interceptors/error-interceptor';
 import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
+import { Tab3Page } from './tab3/tab3.page';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,8 @@ import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
     ImageUtilService,
     PhotoService,
     StorageService,
-    FormBuilder
+    FormBuilder,
+    Tab3Page
   ],
   bootstrap: [AppComponent],
 })

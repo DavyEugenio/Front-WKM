@@ -26,6 +26,10 @@ export class PartidaService {
         return this.http.get<ConfiguracaoPartidaDTO[]>(`${API_CONFIG.baseUrl}/partidas/configuracoes/`);
     }
 
+    findPresetedConfiguracao(): Observable<ConfiguracaoPartidaDTO[]> {
+        return this.http.get<ConfiguracaoPartidaDTO[]>(`${API_CONFIG.baseUrl}/partidas/configuracoes/predefinidas`);
+    }
+
     insertConfiguracao(obj: ConfiguracaoPartidaNewDTO) {
         return this.http.post(
             `${API_CONFIG.baseUrl}/partidas/configuracoes`,

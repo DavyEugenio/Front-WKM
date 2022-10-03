@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon 
+      class="back-arrow"
+      slot="start"
+      name="arrow-back-outline"
+      (click)="exitTabs()"
+    ></ion-icon>
+    <ion-title>Desafios disponíveis.</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let  cp of configs">
+      <ion-label (click)="rankByConfig(cp.id)">Nível:{{cp.nivel}} - Categorias:<span *ngFor="let cat of cp.categorias">{{cat.nome}}</span></ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

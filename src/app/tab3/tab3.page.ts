@@ -31,10 +31,11 @@ export class Tab3Page {
   }
 
   async getPartidas() {
-    console.log(this.jogador);
+    this.partidas = [];
     this.partidaService.findActivesByJogador(this.jogador.id).subscribe(
       response => {
-        this.partidas =response;
+        console.log(response)
+        this.partidas = response;
       }
     );
   }
@@ -61,6 +62,10 @@ export class Tab3Page {
 
   newGame() {
     this.router.navigate(['new-game']);
+  }
+
+  challenges() {
+    this.router.navigate(['list-configs']);
   }
 
   logout() {

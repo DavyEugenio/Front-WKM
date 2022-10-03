@@ -6,6 +6,7 @@ import { QuestaoDTO } from '../models/questao.dto';
 import { RespostaDTO } from '../models/resposta.dto';
 import { CategoriaService } from '../services/domain/categoria.service';
 import { PartidaService } from '../services/domain/partida.service';
+import { Tab3Page } from '../tab3/tab3.page';
 
 @Component({
   selector: 'app-answer-question',
@@ -22,7 +23,8 @@ export class AnswerQuestionPage implements OnInit {
     private route: ActivatedRoute,
     private partidaService: PartidaService,
     private categoriaService: CategoriaService,
-    private alertCtrl: AlertController) {
+    private alertCtrl: AlertController,
+    private tab3: Tab3Page) {
 
     this.route.queryParams.subscribe(params => {
       let getNav = this.router.getCurrentNavigation();
@@ -115,6 +117,7 @@ export class AnswerQuestionPage implements OnInit {
         {
           text: 'OK',
           handler: () => {
+            this.tab3.getJogador();
             this.router.navigate(['tabs/tab3']);
           }
         }

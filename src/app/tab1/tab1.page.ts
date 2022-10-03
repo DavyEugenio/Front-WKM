@@ -20,7 +20,7 @@ export class Tab1Page {
   }
 
   rankingGameByConfiguration() {
-    this.router.navigate(['ranking-game-by-configuration']);
+    this.router.navigate(['list-configs-for-ranking']);
   }
 
   exit() {

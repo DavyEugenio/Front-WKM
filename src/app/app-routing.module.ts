@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./sign-in-up/sign-in-up.module').then( m => m.SignInUpPageModule)
   },
   {
     path: 'tabs',
@@ -33,13 +33,22 @@ const routes: Routes = [
   {
     path: 'ranking-game-by-configuration',
     loadChildren: () => import('./ranking-game-by-configuration/ranking-game-by-configuration.module').then( m => m.RankingGameByConfigurationPageModule)
-  },  {
+  },
+  {
     path: 'change-password',
     loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
   },
   {
     path: 'recovery-password',
     loadChildren: () => import('./recovery-password/recovery-password.module').then( m => m.RecoveryPasswordPageModule)
+  },
+  {
+    path: 'list-configs',
+    loadChildren: () => import('./list-configs/list-configs.module').then( m => m.ListConfigsPageModule)
+  },
+  {
+    path: 'list-configs-for-ranking',
+    loadChildren: () => import('./list-configs-for-ranking/list-configs-for-ranking.module').then( m => m.ListConfigsForRankingPageModule)
   }
 
 

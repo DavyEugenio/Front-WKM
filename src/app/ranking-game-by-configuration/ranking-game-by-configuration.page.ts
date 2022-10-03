@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { API_CONFIG } from '../config/api.config';
 import { RankingDTO } from '../models/ranking.dto';
 import { JogadorService } from '../services/domain/jogador.service';
@@ -11,17 +11,26 @@ import { PartidaService } from '../services/domain/partida.service';
   styleUrls: ['./ranking-game-by-configuration.page.scss'],
 })
 export class RankingGameByConfigurationPage implements OnInit {
-  rankingGamesByConfiguration: RankingDTO[] = []
+  rankingGamesByConfiguration: RankingDTO[] = [];
+  configId:string;
   constructor(private router: Router,
     private partidaService: PartidaService,
     private jogadorService: JogadorService,
-
+    private route: ActivatedRoute,
   ) {
-    this.getRankingGamesByConfiguration();
+    this.route.queryParams.subscribe(params => {
+      let getNav = this.router.getCurrentNavigation();
+      if (getNav.extras.state) {
+        this.configId = getNav.extras.state.configId;
+        this.getRankingGamesByConfiguration()
+      } else {
+        this.router.navigate(['tabs/tab1']);
+      }
+    });
   }
 
   getRankingGamesByConfiguration() {
-    this.partidaService.rankByConfiguracao("1").subscribe(
+    this.partidaService.rankByConfiguracao(this.configId).subscribe(
       response => {
         this.rankingGamesByConfiguration = response;
         this.getImageOfPlayerIfExists();

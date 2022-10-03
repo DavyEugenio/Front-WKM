@@ -4,7 +4,7 @@
       class="login"
       slot="end"
       name="log-in-outline"
-      (click)="signIn()"
+      (click)="logout()"
     ></ion-icon>
     <ion-title> Dados do Perfil </ion-title>
   </ion-toolbar>
@@ -33,9 +33,6 @@
       <ion-button expand="block" color="primary" (click)="editProfile()"
         >Editar</ion-button
       >
-      <ion-button expand="block" color="danger" (click)="logout()"
-        >Sair</ion-button
-      >
     </div>
     <form
       [formGroup]="formEdit"
@@ -43,13 +40,6 @@
       *ngIf="player && edit"
     >
       <div class="buttons">
-        <ion-button
-          class="midia-button"
-          (click)="deletePicture()"
-          *ngIf="image != '/assets/img/user.jpg'"
-        >
-          <ion-icon class="icon-button font-s" name="trash-outline"></ion-icon>
-        </ion-button>
         <ion-button class="midia-button mg-l" (click)="getCameraPicture()">
           <ion-icon class="icon-button font-s" name="camera"></ion-icon>
         </ion-button>
