@@ -224,4 +224,8 @@ export class Tab2Page {
     this.edit = false;
     this.formEdit.reset();
   }
+
+  signIn() {
+    this.router.navigate(['sign-in-up']);
+  }
 }
